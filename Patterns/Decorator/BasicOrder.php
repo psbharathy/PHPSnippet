@@ -34,11 +34,22 @@ Class Shipping implements OrderService
 
 Class OneDayDelivary implements OrderService
 {
+    protected $orderService;
+
+    public function __construct(OrderService $orderService)
+    {
+        $this->orderService  = $orderService;
+    }
+
     public function getTotal()
     {
-       return 20 + 15 + 50;
+       return 20 + $this->orderService->getTotal();
     }
 }
 
 echo (new Shipping (new BasicOrder()))->getTotal();
+
+echo (new OneDayDelivary(new Shipping (new BasicOrder())))->getTotal();
+
+echo (new OneDayDelivary(new BasicOrder()))->getTotal();
 
