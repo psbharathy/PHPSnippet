@@ -5,6 +5,8 @@
 Interface OrderService
 {
     public function getTotal();
+
+    public function getDetails();
 }
 
 // Core Service Class
@@ -13,6 +15,12 @@ Class BasicOrder implements OrderService
     public function getTotal()
     {
        return 20;
+    }
+
+    public function getDetails()
+    {
+
+      return 'Basic Order';
     }
 }
 
@@ -30,9 +38,15 @@ Class Shipping implements OrderService
     {
        return 20 + $this->orderService->getTotal();
     }
+
+    public function getDetails()
+    {
+
+      return $this->orderService->getDetails().', and Shipping Cost';
+    }
 }
 
-Class OneDayDelivary implements OrderService
+Class OneDayDelivery implements OrderService
 {
     protected $orderService;
 
@@ -45,11 +59,21 @@ Class OneDayDelivary implements OrderService
     {
        return 20 + $this->orderService->getTotal();
     }
+
+    public function getDetails()
+    {
+
+      return $this->orderService->getDetails().', and One Day Delivery Cost';
+    }
 }
 
-echo (new Shipping (new BasicOrder()))->getTotal();
-
-echo (new OneDayDelivary(new Shipping (new BasicOrder())))->getTotal();
-
-echo (new OneDayDelivary(new BasicOrder()))->getTotal();
-
+// echo (new Shipping (new BasicOrder()))->getTotal();
+echo "\n";
+// echo (new OneDayDelivery(new Shipping (new BasicOrder())))->getTotal();
+echo "\n";
+// echo (new OneDayDelivery(new BasicOrder()))->getTotal();
+echo "\n";
+echo (new Shipping (new BasicOrder()))->getDetails();
+echo "\n";
+echo (new OneDayDelivery(new BasicOrder()))->getDetails();
+echo "\n";
