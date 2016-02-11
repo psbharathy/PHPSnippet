@@ -1,6 +1,11 @@
 <?php
 
-Class BasicOrder
+Interface OrderService
+{
+    public function getTotal();
+}
+
+Class BasicOrder implements OrderService
 {
     public function getTotal()
     {
@@ -8,7 +13,7 @@ Class BasicOrder
     }
 }
 
-Class BasicOrderAndShipping
+Class Shipping implements OrderService
 {
     public function getTotal()
     {
@@ -16,7 +21,7 @@ Class BasicOrderAndShipping
     }
 }
 
-Class BasicOrderAndShippingAndOneDayDelivary
+Class OneDayDelivary implements OrderService
 {
     public function getTotal()
     {
@@ -24,8 +29,5 @@ Class BasicOrderAndShippingAndOneDayDelivary
     }
 }
 
-echo (new BasicOrder)->getTotal();
+echo (new BasicOrder())->getTotal();
 
-echo (new BasicOrderAndShipping)->getTotal();
-
-echo (new BasicOrderAndShippingAndOneDayDelivary)->getTotal();
